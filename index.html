@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<button id="menuBtn" onclick="document.body.classList.toggle('navopen')">☰</button>
+<button id="menuBtn" onclick="document.body.classList.toggle('navopen');this.textContent=document.body.classList.contains('navopen')?'✖':'☰'">☰</button>
 <button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <div class="app">
 <aside>

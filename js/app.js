@@ -1,5 +1,7 @@
 
 function goView(v,btn){
+  document.body.classList.remove('navopen');
+  const mb=document.getElementById('menuBtn'); if(mb)mb.textContent='☰';
   document.querySelectorAll('section.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
   document.querySelectorAll('.navlink').forEach(b=>b.classList.toggle('on',b===btn));
   window.scrollTo({top:0,behavior:'smooth'});
