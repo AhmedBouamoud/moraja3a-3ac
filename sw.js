@@ -1,5 +1,5 @@
 /* المرجع الشامل - Service Worker v1.0 */
-const CACHE = 'almarjaa-v1.2';
+const CACHE = 'almarjaa-v1.3';
 const ASSETS = [
   './', './index.html', './css/style.css', './js/app.js',
   './manifest.json', './icons/icon-192.png', './icons/icon-512.png'
@@ -14,6 +14,7 @@ self.addEventListener('activate', e => {
 });
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
+  if (e.request.url.endsWith('.apk')) return; // لا تُخزن ملفات APK في الكاش
   e.respondWith(
     caches.match(e.request).then(hit => hit ||
       fetch(e.request).then(res => {
