@@ -79,33 +79,32 @@ function apkClick(e){
 /* service worker */
 if('serviceWorker' in navigator){ addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
 
-/* ===== طباعة احترافية انتقائية ===== */
+/* ===== طباعة احترافية عبر حاوية مخصصة ===== */
 function openPrintMenu(){
   document.body.classList.remove('navopen');
-  const mb=document.getElementById('menuBtn'); if(mb)mb.textContent='☰';
+  const mb=document.getElementById('menuBtn'); if(mb)mb.textContent='\u2630';
   document.getElementById('printOv').style.display='flex';
 }
+const PHEAD='<div class="print-head"><b>\ud83d\udcd6 \u0627\u0644\u0645\u0631\u062c\u0639 \u0627\u0644\u0634\u0627\u0645\u0644 \u2014 \u0627\u0644\u0627\u0645\u062a\u062d\u0627\u0646 \u0627\u0644\u062c\u0647\u0648\u064a \u0627\u0644\u0645\u0648\u062d\u062f (\u0627\u0644\u0627\u062c\u062a\u0645\u0627\u0639\u064a\u0627\u062a 3AC)</b><br><span>\u0625\u0639\u062f\u0627\u062f: \u0630. \u0623\u062d\u0645\u062f \u0628\u0648\u0639\u0645\u0648\u062f \u2014 \u0645\u0624\u0633\u0633\u0629 \u0627\u0644\u062d\u0646\u0627\u0646 \u0627\u0644\u062e\u0627\u0635\u0629 | 2025-2026</span></div>';
 function printScope(scope){
   document.getElementById('printOv').style.display='none';
-  // نظّف أي تعليم سابق
-  document.querySelectorAll('section.view.printme').forEach(s=>s.classList.remove('printme'));
-  document.body.classList.remove('printing-all');
-  if(scope==='all'){
-    document.body.classList.add('printing-all');
-  } else if(scope==='cur'){
-    const cur=document.querySelector('section.view.on'); if(cur)cur.classList.add('printme');
-  } else {
-    const sec=document.getElementById('v-'+scope); if(sec)sec.classList.add('printme');
-  }
-  // افتح كل الدروس داخل النطاق المطبوع
-  const open=document.querySelectorAll(document.body.classList.contains('printing-all')?'details.lesson':'section.view.printme details.lesson');
-  open.forEach(d=>d.open=true);
-  // اطبع ثم نظّف
-  setTimeout(()=>{
-    window.print();
-    setTimeout(()=>{
-      document.querySelectorAll('section.view.printme').forEach(s=>s.classList.remove('printme'));
-      document.body.classList.remove('printing-all');
-    },400);
-  },250);
+  let ids=[];
+  if(scope==='all') ids=['home','hist','geo','civ','met','tips'];
+  else if(scope==='cur'){ const c=document.querySelector('section.view.on'); ids=[c?c.id.replace('v-',''):'home']; }
+  else ids=[scope];
+  let pa=document.getElementById('printArea');
+  if(!pa){ pa=document.createElement('div'); pa.id='printArea'; document.body.appendChild(pa); }
+  let html=PHEAD;
+  ids.forEach(id=>{
+    const sec=document.getElementById('v-'+id);
+    if(!sec) return;
+    const clone=sec.cloneNode(true);
+    clone.querySelectorAll('.welcome, .done-chk, .chev, .searchbox, .info-strip').forEach(e=>e.remove());
+    clone.querySelectorAll('details').forEach(d=>d.setAttribute('open',''));
+    const wrap=document.createElement('div'); wrap.className='psec';
+    wrap.innerHTML=clone.innerHTML;
+    html+=wrap.outerHTML;
+  });
+  pa.innerHTML=html;
+  setTimeout(()=>{ window.print(); }, 200);
 }
