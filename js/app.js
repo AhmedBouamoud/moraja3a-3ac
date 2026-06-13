@@ -85,3 +85,34 @@ function apkClick(e){
 }
 /* service worker */
 if('serviceWorker' in navigator){ addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{})); }
+
+/* ===== طباعة احترافية انتقائية ===== */
+function openPrintMenu(){
+  document.body.classList.remove('navopen');
+  const mb=document.getElementById('menuBtn'); if(mb)mb.textContent='☰';
+  document.getElementById('printOv').style.display='flex';
+}
+function printScope(scope){
+  document.getElementById('printOv').style.display='none';
+  // نظّف أي تعليم سابق
+  document.querySelectorAll('section.view.printme').forEach(s=>s.classList.remove('printme'));
+  document.body.classList.remove('printing-all');
+  if(scope==='all'){
+    document.body.classList.add('printing-all');
+  } else if(scope==='cur'){
+    const cur=document.querySelector('section.view.on'); if(cur)cur.classList.add('printme');
+  } else {
+    const sec=document.getElementById('v-'+scope); if(sec)sec.classList.add('printme');
+  }
+  // افتح كل الدروس داخل النطاق المطبوع
+  const open=document.querySelectorAll(document.body.classList.contains('printing-all')?'details.lesson':'section.view.printme details.lesson');
+  open.forEach(d=>d.open=true);
+  // اطبع ثم نظّف
+  setTimeout(()=>{
+    window.print();
+    setTimeout(()=>{
+      document.querySelectorAll('section.view.printme').forEach(s=>s.classList.remove('printme'));
+      document.body.classList.remove('printing-all');
+    },400);
+  },250);
+}

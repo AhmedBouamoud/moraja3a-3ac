@@ -153,10 +153,39 @@ table.tb td:first-child{font-weight:800; background:var(--tint)!important; white
 .welcome h3{color:var(--ink); font-size:1.2rem; margin-bottom:4px;}
 .welcome h3 b{color:var(--gold);}
 .welcome p{font-size:.9rem; color:#473F33;}
+/* ===== طباعة احترافية ===== */
+.print-head, .print-foot{display:none;}
 @media print{
-  aside{display:none;} .app{display:block;} main{max-width:none; padding:0;}
-  section.view{display:block!important; page-break-before:always;}
-  details.lesson{break-inside:avoid;} details.lesson:not([open]) .lesson-body{display:block;}
+  @page{ margin:14mm 12mm 16mm; }
+  body{background:#fff!important; color:#000!important; font-size:11pt; line-height:1.7;}
+  body.dark{--bg:#fff;--card:#fff;--ink:#000;--soft:#444;--line:#bbb;}
+  aside,#menuBtn,#topBtn,.searchbox,.toolbox,.done-chk,.welcome,.bg-blob{display:none!important;}
+  .app{display:block;} main{max-width:none; padding:0;}
+  /* اطبع فقط الأقسام المعلَّمة للطباعة */
+  section.view{display:none!important;}
+  body.printing-all section.view, section.view.printme{display:block!important;}
+  section.view.printme, body.printing-all section.view{page-break-before:always;}
+  section.view.printme:first-of-type, body.printing-all section.view:first-of-type{page-break-before:avoid;}
+  /* ترويسة وتذييل على كل صفحة */
+  .print-head{display:block; text-align:center; border-bottom:2px solid #000; padding-bottom:5px; margin-bottom:10px; font-size:9pt;}
+  .print-head b{font-size:11pt;}
+  .print-foot{display:block; position:fixed; bottom:0; right:0; left:0; text-align:center; font-size:8pt; color:#444; border-top:1px solid #999; padding-top:3px;}
+  /* فتح كل الدروس وإظهار محتواها */
+  details.lesson{break-inside:avoid; border:1px solid #999!important; box-shadow:none!important; margin-bottom:8px;}
+  details.lesson .lesson-body{display:block!important;}
+  details.lesson .chev{display:none;}
+  .lnum{border:1px solid #000; color:#000!important; background:#eee!important; print-color-adjust:exact;}
+  /* جداول واضحة بالأبيض والأسود */
+  table.tb th{background:#333!important; color:#fff!important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  table.tb td:first-child{background:#f0f0f0!important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  table.tb, table.tb td, table.tb th{border-color:#999!important;}
+  .view-head h2{color:#000!important;}
+  h4.act{background:#444!important; color:#fff!important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  .cpt{border:1px solid #999!important; break-inside:avoid;}
+  .conclusion,.intro-block,.tipcard,.fw{border:1px solid #999!important; background:#f7f7f7!important; -webkit-print-color-adjust:exact; print-color-adjust:exact; break-inside:avoid;}
+  .tl .ev{border:1px solid #555!important;}
+  .hl,.k,mark.sh{background:#eee!important; color:#000!important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  a[href]:after{content:"";}
 }
 
 /* ===== Professional site additions ===== */
@@ -205,3 +234,12 @@ body.dark table.tb tr:nth-child(even) td{background:#232936;}
 body.dark .fw .n{color:#2C3340;}
 body.dark .info-strip .it, body.dark .conclusion{background:var(--card);}
 body.dark mark.sh{background:#7A5E12; color:#FFE9B0;}
+
+/* أزرار قائمة الطباعة */
+.pbtn{
+  border:none; cursor:pointer; font-family:inherit; font-weight:800; font-size:.92rem;
+  background:var(--tint,#F0E9DC); color:var(--ink); border-radius:12px; padding:12px 16px;
+  text-align:start; transition:transform .12s, background .2s;
+}
+.pbtn:hover{transform:translateX(-3px); background:#EDE3D0;}
+body.dark .pbtn{background:#2A313D;} body.dark .pbtn:hover{background:#323A47;}

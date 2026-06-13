@@ -18,6 +18,8 @@
 <body>
 <button id="menuBtn" onclick="document.body.classList.toggle('navopen');this.textContent=document.body.classList.contains('navopen')?'✖':'☰'">☰</button>
 <button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div class="print-head"><b>📖 المرجع الشامل — الامتحان الجهوي الموحد (الاجتماعيات 3AC)</b><br>إعداد: ذ. أحمد بوعمود — مؤسسة الحنان الخاصة | 2025-2026</div>
+<div class="print-foot">المرجع الشامل للمراجعة العامة — ذ. أحمد بوعمود | moraja3a.netlify.app</div>
 <div class="app">
 <aside>
   <div class="logo"><span class="em">📖</span></div>
@@ -48,7 +50,7 @@
     </div>
     <div class="row">
       <button onclick="document.body.classList.toggle('present')">🖥️ وضع العرض</button>
-      <button onclick="window.print()">🖨️ طباعة</button>
+      <button onclick="openPrintMenu()">🖨️ طباعة</button>
     </div>
     <div class="row"><button onclick="openAll()">📂 فتح الكل</button><button onclick="closeAll()">📁 طي الكل</button></div>
   </div>
@@ -1010,5 +1012,21 @@
 </main>
 </div>
 <script src="js/app.js"></script>
+<div id="printOv" onclick="if(event.target===this)this.style.display='none'" style="display:none;position:fixed;inset:0;z-index:120;background:rgba(20,15,8,.75);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:var(--card);color:var(--ink);border-radius:18px;max-width:420px;width:100%;padding:22px;box-shadow:0 14px 40px rgba(0,0,0,.4);">
+    <h3 style="color:var(--gold);margin-bottom:6px;">🖨️ خيارات الطباعة</h3>
+    <p style="font-size:.82rem;color:var(--soft);margin-bottom:16px;line-height:1.8;">اختر ما تريد طباعته. تُفتح كل الدروس تلقائيا وتُحسّن الألوان لتوفير الحبر، مع ترويسة باسمك في كل صفحة.</p>
+    <div style="display:flex;flex-direction:column;gap:9px;">
+      <button class="pbtn" onclick="printScope('cur')">📄 طباعة القسم الحالي فقط</button>
+      <button class="pbtn" onclick="printScope('hist')">📕 طباعة دروس التاريخ</button>
+      <button class="pbtn" onclick="printScope('geo')">📗 طباعة دروس الجغرافيا</button>
+      <button class="pbtn" onclick="printScope('civ')">📘 طباعة دروس المواطنة</button>
+      <button class="pbtn" onclick="printScope('met')">🧭 طباعة المنهجيات</button>
+      <button class="pbtn" onclick="printScope('tips')">💡 طباعة نصائح الامتحان</button>
+      <button class="pbtn" style="background:var(--gold);color:#3A2800;font-weight:900;" onclick="printScope('all')">📚 طباعة المرجع كاملا</button>
+      <button class="pbtn" style="background:transparent;color:var(--soft);" onclick="document.getElementById('printOv').style.display='none'">إلغاء</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
