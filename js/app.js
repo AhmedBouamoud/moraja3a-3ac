@@ -28,15 +28,8 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 /* ===== Professional site features ===== */
-/* dark mode */
-function toggleDark(){
-  document.body.classList.toggle('dark');
-  const on=document.body.classList.contains('dark');
-  document.getElementById('btnDark').textContent=on?'☀️ وضع نهاري':'🌙 وضع ليلي';
-  try{localStorage.setItem('ref3acDark',on?'1':'');}catch(e){}
-}
-try{ if(localStorage.getItem('ref3acDark')){ document.body.classList.add('dark');
-  addEventListener('DOMContentLoaded',()=>{document.getElementById('btnDark').textContent='☀️ وضع نهاري';}); } }catch(e){}
+/* تمت إزالة الوضع الليلي نهائيا لضمان خلفية فاتحة مناسبة للتلاميذ دائما */
+try{ document.body.classList.remove('dark'); localStorage.removeItem('ref3acDark'); }catch(e){}
 /* back to top */
 addEventListener('scroll',()=>document.body.classList.toggle('scrolled',scrollY>500));
 /* search */

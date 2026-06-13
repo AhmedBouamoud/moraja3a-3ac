@@ -192,16 +192,3 @@ body.searching .view-head{display:none;}
 body.searching details.lesson{display:none;}
 body.searching details.lesson.hit{display:block;}
 mark.sh{background:#FFE08A; color:#5A3A00; border-radius:3px; padding:0 2px;}
-/* ===== Dark mode (مريح ليلا) ===== */
-body.dark{
-  --bg:#171A21; --card:#1F242E; --ink:#E8E4DC; --soft:#9AA3B2; --line:#2C3340;
-  --hist-t:#2A2026; --geo-t:#1E2A24; --civ-t:#1D2733; --met-t:#2B2618; --tip-t:#1C2A29;
-  --sh:0 4px 18px rgba(0,0,0,.4);
-}
-body.dark .welcome{background:linear-gradient(135deg,#1F242E,#252B37);}
-body.dark .cpt{background:#252B37;}
-body.dark table.tb{background:var(--card);}
-body.dark table.tb tr:nth-child(even) td{background:#232936;}
-body.dark .fw .n{color:#2C3340;}
-body.dark .info-strip .it, body.dark .conclusion{background:var(--card);}
-body.dark mark.sh{background:#7A5E12; color:#FFE9B0;}
