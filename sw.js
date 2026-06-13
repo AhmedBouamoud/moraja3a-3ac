@@ -1,5 +1,5 @@
 /* المرجع الشامل - Service Worker v1.0 */
-const CACHE = 'almarjaa-v1.4';
+const CACHE = 'almarjaa-v1.5';
 const ASSETS = [
   './', './index.html', './css/style.css', './js/app.js',
   './manifest.json', './icons/icon-192.png', './icons/icon-512.png'
