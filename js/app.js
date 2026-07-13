@@ -99,12 +99,13 @@ function printScope(scope){
     const sec=document.getElementById('v-'+id);
     if(!sec) return;
     const clone=sec.cloneNode(true);
-    clone.querySelectorAll('.welcome, .done-chk, .chev, .searchbox, .info-strip').forEach(e=>e.remove());
+    clone.querySelectorAll('.hero, .welcome, .done-chk, .chev, .searchbox, .info-strip').forEach(e=>e.remove());
     clone.querySelectorAll('details').forEach(d=>d.setAttribute('open',''));
     const wrap=document.createElement('div'); wrap.className='psec';
     wrap.innerHTML=clone.innerHTML;
     html+=wrap.outerHTML;
   });
+  html+='<div class="print-foot">المرجع الشامل للمراجعة العامة — ذ. أحمد بوعمود | moraja3a.netlify.app</div>';
   pa.innerHTML=html;
   setTimeout(()=>{ window.print(); }, 200);
 }
